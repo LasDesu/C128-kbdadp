@@ -174,7 +174,7 @@ static int ps2_command( unsigned char data )
 	return 0;
 }
 
-int kbd_set_leds( unsigned lights )
+int kbd_set_leds( unsigned char lights )
 {
 	int ret;
 
@@ -220,14 +220,13 @@ static int kbd_reset()
 	if ( ret )
 		goto reset_fail;
 
-	// send Set/Reset Status Indicators (ED) command
-	ret = ps2_command( 0xED );
+	// blink LEDs
+	ret = kbd_set_leds( 0 );
 	if ( ret )
 		goto reset_fail;
-	// Turn off all LEDs
-	ret = ps2_command( 0x00 );
-	if ( ret )
-		goto reset_fail;
+	timer_msleep( 150 );
+	// set current flags state
+	key_update_flags();
 
 	// enable LED
 	dbg_kbd_led_set( 1 );
