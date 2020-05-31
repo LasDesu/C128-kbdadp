@@ -143,8 +143,8 @@ void key_restore_set( int state )
 }
 
 #define PS2_PORT		GPIOC
-#define PS2_DATA_PIN	GPIO_Pin_13
-#define PS2_CLK_PIN		GPIO_Pin_14
+#define PS2_DATA_PIN	GPIO_Pin_14
+#define PS2_CLK_PIN		GPIO_Pin_13
 
 void ps2_clock_out()
 {
